@@ -156,13 +156,11 @@ export const MenuExplore = ({ menuIsOpen, closeMenu }: Props) => {
                         </ContainerCategories>
                         <ContainerCategories>
                             <div>
-                                <p>Categorias princiaples</p>
+                                <p>Generos</p>
                                 <Link href={'/categoria/accion'}><li>Accion</li></Link>
                                 <Link href={'/categoria/aventura'}><li>Aventura</li></Link>
                                 <Link href={'/categoria/comedia'}><li>Comedia</li></Link>
                                 <Link href={'/categoria/drama'}><li>Drama</li></Link>
-
-                                <p>Generos</p>
                                 <Link href={'/categoria/ciencia-ficcion'}><li>Ciencia ficcion</li></Link>
                                 <Link href={'/categoria/terror'}><li>Terror</li></Link>
                                 <Link href={'/categoria/animacion'}><li>Animacion</li></Link>
@@ -180,16 +178,20 @@ export const MenuExplore = ({ menuIsOpen, closeMenu }: Props) => {
                         <MenuItem onClick={handleOpenCloseCategories}><p>Categorias <span><BiDownArrow /></span></p></MenuItem>
                         <CategoriesMenu onClick={closeMenu} className='ocultar' ref={categoriesRef}>
                             <p>Categorias princiaples</p>
+                            <Link href={'/explorar/popular'}><li>Populares</li></Link>
+                            <Link href={'/explorar/top_rated'}><li>Grandes Exitos</li></Link>
+                            <Link href={'/explorar/now_playing'}><li>Tendencias</li></Link>
+                            <Link href={'/explorar/upcoming'}><li>Proximamente</li></Link>
+                            <p>Generos</p>
                             <Link href={'/categoria/accion'}><li>Accion</li></Link>
                             <Link href={'/categoria/aventura'}><li>Aventura</li></Link>
                             <Link href={'/categoria/comedia'}><li>Comedia</li></Link>
                             <Link href={'/categoria/drama'}><li>Drama</li></Link>
-                            <p>Generos</p>
                             <Link href={'/categoria/ciencia-ficcion'}><li>Ciencia ficcion</li></Link>
                             <Link href={'/categoria/terror'}><li>Terror</li></Link>
                             <Link href={'/categoria/animacion'}><li>Animacion</li></Link>
                             <Link href={'/categoria/documental'}><li>Documental</li></Link>
-
+                            <br/>
                         </CategoriesMenu>
                     </>
             }

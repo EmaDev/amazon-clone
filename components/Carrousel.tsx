@@ -5,6 +5,7 @@ import { CardBigScreen } from './CardBigScreen';
 import { useMediaQuery } from 'react-responsive';
 import { CardMobile } from './CardMobile';
 import { Pelicula } from '../interfaces/Peliculas';
+import { useRouter } from 'next/router';
 
 const GLobalContainer = styled.div`
   color: #e1e1e1;
@@ -16,10 +17,15 @@ const Title = styled.h3`
     font-size: 1.8rem; 
     font-weight: 700;
     color: #fff;
-    span{
+    button{
         color: #79b8f3;
         margin: 0 2rem; 
         font-size: 1.4rem;
+        background: none;
+        border-style:none;
+        &:hover{
+            color: #e1e1e1;
+        }
     }
 `;
 
@@ -74,11 +80,13 @@ const CarrouselSlider = styled.div`
 interface Props {
     movies: Pelicula[];
     title: string;
+    url?: string;
 }
-export const Carrousel = ({movies, title}:Props) => {
+export const Carrousel = ({ movies, title, url }: Props) => {
 
     const isBigScreen = useMediaQuery({ query: '(min-width: 870px)' });
     const scrollCarrousel: any = useRef(null);
+    const { push } = useRouter();
 
     const handleScrollCarrousel = (rigth: boolean) => {
         const widthCarr = scrollCarrousel.current.offsetWidth;
@@ -92,7 +100,9 @@ export const Carrousel = ({movies, title}:Props) => {
     return (
         <GLobalContainer>
             <br />
-            <Title>{title}<span>ver mas</span></Title>
+            <Title>{title}
+                {url && <button onClick={() => push(url)}>ver mas</button>}
+            </Title>
             <PrimaryContainer>
                 {
                     (isBigScreen) ?
@@ -101,7 +111,7 @@ export const Carrousel = ({movies, title}:Props) => {
                             <CarrouselContainer ref={scrollCarrousel}>
                                 <CarrouselSliderBigScreen>
                                     {movies.map(item => (
-                                        <CardBigScreen key={item.id} movie={item}/>
+                                        <CardBigScreen key={item.id} movie={item} />
                                     ))}
                                 </CarrouselSliderBigScreen>
                             </CarrouselContainer>
@@ -110,7 +120,7 @@ export const Carrousel = ({movies, title}:Props) => {
                         :
                         <CarrouselSlider>
                             {movies.map(item => (
-                                <CardMobile key={item.id} movie={item}/>
+                                <CardMobile key={item.id} movie={item} />
                             ))}
                         </CarrouselSlider>
                 }

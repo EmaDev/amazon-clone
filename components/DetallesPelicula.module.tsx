@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header<any>`
    @media(min-width: 678px){
       background-position: top right;
       background-size: contain;
-      height: 95vh;
+      height: 100vh;
    }
 `;
 export const GridHeader = styled.div`
@@ -97,6 +97,7 @@ export const ButtonPlay = styled.button`
    padding: 2rem;
    color: #fff;
    background-color:#0f79af;
+   cursor: pinter;
    p{
       margin: 0 2rem;
       font-size: 1.8rem;
@@ -104,6 +105,11 @@ export const ButtonPlay = styled.button`
    @media(min-width: 600px){
       max-width: 300px;
    }
+   &:hover{
+      background-color: #1f91cc;
+      transition: .3s ease all;
+   }
+   
 `;
 
 export const ActionButton = styled.div`
@@ -114,6 +120,7 @@ export const ActionButton = styled.div`
    margin:auto;
    width: 70px;
    position:relative;
+   cursor: pointer;
    span{
       color: #e1e1e1;
       font-size: 1.4rem;
@@ -129,6 +136,9 @@ export const ActionButton = styled.div`
          display:flex;
          align-items:center;
          position:relative;
+         &:hover{
+            background-color: #536070;
+         }
       }
       &:last-child{
          position:absolute;
@@ -137,6 +147,10 @@ export const ActionButton = styled.div`
          @media(min-width: 600px){
             display:none;
          }
+      }
+
+      &:hover{
+         color: #fff;
       }
    }
 `;
@@ -151,13 +165,13 @@ export const Resena = styled.p`
    @media(max-width: 600px){
       margin-top: 4rem;
    }
+   @media(min-width: 600px){
+      margin-bottom: 4rem;
+   }
 `;
 
 export const ItemDetalle = styled.div`
    margin: 1rem;
-   @media(min-width: 600px){
-      padding: 1rem;
-   }
    h4{
       font-size: 1.6rem;
       font-weight: 700;
@@ -170,9 +184,14 @@ export const ItemDetalle = styled.div`
       color: #79b8f3;
       margin: 0;
    }
+   @media(min-width: 600px){
+      display: grid;
+      grid-template-columns: 30% 70%;
+      margin: 0 1rem ;
+   }
 `;
 
-export const ConstButtonsConmpartir = styled.div`
+export const ButtonsCompartir = styled.div`
    display: flex;
    justify-content:center;
    align-items: center;
@@ -187,4 +206,26 @@ export const ConstButtonsConmpartir = styled.div`
          display:inline-block;
       }
    }
+`;
+
+export const ContainerCompartir = styled.div`
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items:center; 
+    position:absolute;
+    bottom:0;
+    left: 0; right: 0;
+    margin:auto;
+    cursor: pointer;
+    p{
+      margin:0;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #425265;
+      span{
+         margin: 0 1rem;
+         color: #0f79af;
+      }
+    }
 `;

@@ -87,15 +87,17 @@ export const CardConDescripcion = ({movie}:Props) => {
   }
 
   const imgUrl = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+  const linkDetalle = `/detalle/${movie.id}?tipo=${movie.first_air_date ? 'serie' : 'pelicula'}`;
+
   return (
     <Card>
         <CardImage>
             <img src={imgUrl} style={{borderRadius: '5px 5px 0 0'}}/>
-            <ButtonPlay onClick={() => push(`/detalle/${movie.id}`)}><FaPlay style={{marginLeft: '1px'}}/></ButtonPlay>
+            <ButtonPlay onClick={() => push(linkDetalle)}><FaPlay style={{marginLeft: '1px'}}/></ButtonPlay>
         </CardImage>
         <CardDescription>
-            <div onClick={() => push(`/detalle/${movie.id}`)}>
-                <p>{movie.title || movie.original_title}</p>
+            <div onClick={() => push(linkDetalle)}>
+                <p>{movie.title || movie.original_title || movie.name || movie.original_name}</p>
                 <MovieData>
                     <SiImdb size={'1.8rem'}/>
                     <span>7.2</span>

@@ -6,24 +6,24 @@ import { useRouter } from 'next/router';
 import { PeliculasContext } from '../../context/PeliculasContext';
 import { Spinner } from '../../components/Spinner';
 
-
 const PeliculaPage: NextPage = () => {
-  const { asPath } = useRouter();
+  const { query } = useRouter();
   const { getPeliculaPorId, peliculaActual, isLoading } = useContext(PeliculasContext);
-  useEffect(() => {
-
-    const arrPath: any[] = asPath.split('/');
-
-    if (arrPath.length > 0) {
-      getPeliculaPorId(parseInt(arrPath[2]));
+  useEffect(() => {    
+    if(query.id && query.tipo){
+      getPeliculaPorId(query.id.toString(), query.tipo.toString());
     }
+  }, [query]);
 
-  }, [asPath]);
   return (
     <Layout>
       {(isLoading || peliculaActual === undefined) ?
        <Spinner/>
-       : <DetallePelicula pelicula={peliculaActual} />
+       : <DetallePelicula 
+       detalle={peliculaActual.detalle} 
+       elenco={peliculaActual.elenco.cast.slice(0, 4)}
+       similares={peliculaActual.similares}
+       />
       }
     </Layout>
   )

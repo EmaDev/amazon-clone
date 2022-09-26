@@ -14,6 +14,7 @@ const Container = styled.header`
    position: fixed;
    width: 100%;
    z-index: 999;
+   top: 0;
 `;
 const ContainerNavBar = styled.div`
    padding: 1.5rem;
@@ -39,6 +40,7 @@ const ItemText = styled.span<any>`
    cursor:pointer;
    display:flex;
    align-items:center;
+   ${({first}) => first && 'margin-left: 3rem;'}
 
    ${({ active }) => active ?
     `border-bottom: 2px solid #fff;
@@ -47,9 +49,6 @@ const ItemText = styled.span<any>`
 
    &:hover{
     color: #fff;
-   }
-   &:after{
-
    }
    
 `;
@@ -72,7 +71,7 @@ export const Navbar = () => {
           <Image onClick={() => push('/')} width={'110px'} height={'32px'} src={require('../src/logo.svg')} />
           {(isBigScreen) ?
             <>
-              <Link href={'/'}><ItemText active>Inicio</ItemText></Link>
+              <Link href={'/'}><ItemText active first>Inicio</ItemText></Link>
               <Link href={'/series'}><ItemText>series</ItemText></Link>
               <Link href={'/peliculas'}><ItemText>peliculas</ItemText></Link>
               <ItemText onClick={openMenu}>Categorias<BiDownArrow size={'1.2rem'} style={{margin: '0 .5rem'}}/></ItemText>

@@ -1,57 +1,54 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { Pelicula, PeliculaFull, Peliculas } from '../interfaces/Peliculas';
+import { Elenco, Pelicula, PeliculaFull, PeliculaSimilar } from '../interfaces/Peliculas';
 import { useMovies } from '../hooks/useMovies';
+
+interface MoviesState {
+    topRated: Pelicula[];
+    nowPlaying: Pelicula[];
+    tvPopular: Pelicula[];
+    popular: Pelicula[];
+    tvTopRated: Pelicula[];
+} 
 
 interface PeliculasContextProps {
     isLoading: boolean;
-    peliculasState: Pelicula[];
-    peliculaActual: PeliculaFull | undefined;
-    getPeliculaPorId: (id: number) => void;
-    filterMoviesByQuery: any;
+    peliculasState: MoviesState | undefined;
+    peliculaActual: PeliculaActual | undefined;
+    getPeliculaPorId: (id: string, tipo:string) => void;
     getMovieByGenre: any;
+    getMoviesAndTvShowsByQuery: (query: string) => any;
 }
 
-const movieDb = axios.create({
-    baseURL: 'https://api.themoviedb.org/3/movie/',
-    params: {
-        api_key: 'aaa74d826d865032160b44636ae09040',
-        language: 'es-ES'
-    }
-});
-
-const arrQueries:string[] = [
-    'popular',
-    'now_playing',
-    'top_rated',
-    'upcoming',
-];
+interface PeliculaActual {
+    detalle: PeliculaFull;
+    similares: Pelicula[];
+    elenco: Elenco;
+}
 
 export const PeliculasContext = createContext({} as PeliculasContextProps);
 
 export const PeliculasContextProvider = ({ children }: any) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [peliculaActual, setPeliculaActual] = useState<PeliculaFull>();
-    const { getMoviesByQuery, movies, filterMoviesByQuery, getMovieByGenre} = useMovies({queries: arrQueries});
+    const [peliculaActual, setPeliculaActual] = useState<PeliculaActual>();
+    const { movies, getMovies, getMovieByGenre, getMoviesAndTvShowsByQuery, getDetailById } = useMovies();
 
-    useEffect(() => {
-        getTodasLasPelicula();
-    }, []);
+    useEffect( () => {
+        getMovies();
+        setTimeout( () => {
+            setIsLoading(false);
+        },2000);
+    },[]);
 
-    const getTodasLasPelicula = async () => {
+    const getPeliculaPorId = async(id: string, tipo:string) => {
         setIsLoading(true);
-        
-        await getMoviesByQuery();
-
-        setIsLoading(false);
-    }
-
-    const getPeliculaPorId = async (id: number) => {
-        setIsLoading(true);
-        const url = id;
-        const { data } = await movieDb.get<PeliculaFull>(`/${url}`);
-        setPeliculaActual(data);
+        const {movieDetail, credits, similarMovies} = await getDetailById(id, tipo);
+        setPeliculaActual({
+            detalle: movieDetail,
+            elenco: credits,
+            similares: similarMovies
+        });
         setIsLoading(false);
     }
 
@@ -61,8 +58,8 @@ export const PeliculasContextProvider = ({ children }: any) => {
             peliculasState: movies,
             peliculaActual: peliculaActual,
             getPeliculaPorId,
-            filterMoviesByQuery,
-            getMovieByGenre
+            getMovieByGenre,
+            getMoviesAndTvShowsByQuery
         }}>
             {children}
         </PeliculasContext.Provider>

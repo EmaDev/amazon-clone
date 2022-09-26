@@ -36,7 +36,6 @@ const Grid = styled.div`
    }
 `;
 
-const arr = [1,2,3,4,6,11,5,847,84,58,75,65,55,35];
 
 const CategoriaPage: NextPage = () => {
     

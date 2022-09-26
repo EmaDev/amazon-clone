@@ -33,10 +33,7 @@ const SwiperItem = styled.div<any>`
   }
 `;
 
-interface Props {
-  movies: Pelicula[];
-}
-export const Header = ({ movies }: Props) => {
+export const Header = () => {
 
   return (
     <HeaderContainer>

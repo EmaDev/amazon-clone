@@ -48,9 +48,10 @@ interface Props {
 export const CardBigScreen = ({ movie }: Props) => {
 
   const imgUrl = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+  const linkDetalle = `/detalle/${movie.id}?tipo=${movie.first_air_date ? 'serie' : 'pelicula'}`
 
   return (
-    <Link href={`/detalle/${movie.id}`}>
+    <Link href={linkDetalle}>
       <Card>
         <img src={imgUrl} alt={movie.original_title} />
       </Card>
