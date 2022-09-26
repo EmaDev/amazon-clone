@@ -2,7 +2,6 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import { Pelicula } from '../interfaces/Peliculas';
-const image = require('../src/images/card.jpg');
 
 const Card = styled.div<any>`
    min-width: 20%;

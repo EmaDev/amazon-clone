@@ -12,8 +12,6 @@ import {
 import { Cast, Pelicula, PeliculaFull, PeliculaSimilar } from '../interfaces/Peliculas';
 import { Carrousel } from './Carrousel';
 
-const imagen = require('../src/images/detail.jpg');
-
 interface Props {
    detalle: PeliculaFull;
    elenco: Cast[];

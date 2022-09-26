@@ -6,7 +6,6 @@ import { CardConDescripcion } from '../../components/CardConDescripcion';
 import { Layout } from '../../components/Layout';
 import { PeliculasContext } from '../../context/PeliculasContext';
 import { Pelicula } from '../../interfaces/Peliculas';
-const imagen = require('../../src/images/card2.jpg');
 
 
 const Title = styled.h1`
