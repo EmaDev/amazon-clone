@@ -1,4 +1,4 @@
-import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
+import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut} from 'firebase/auth';
 import {app} from './index';
 
 const auth = getAuth(app);
@@ -15,6 +15,15 @@ interface UserData {
     }
 }
 
+export const detectarCambiosEnLaSesion = async(logIn:any) => {
+    
+    onAuthStateChanged(auth, (user) => {
+        if(user) {
+            logIn(user.uid);
+        }
+    });
+
+}
 export const createAnUserWithEmailAndPassword = async(name:string,email:string, password:string) => {
 
     try {
@@ -32,10 +41,42 @@ export const createAnUserWithEmailAndPassword = async(name:string,email:string, 
         }
      
         console.log(user);
-     //await setDoc( doc(db, "users", user.uid), userData);
+        //await setDoc( doc(db, "users", user.uid), userData);
+        return {
+            ok:true,
+            uid: user.uid
+        }
 
     } catch (error) {
         console.log(error);
+        return {
+            ok:false,
+            uid: ''
+        }
     }
 
+}
+
+export const loginWithEmailAndPassword = async (email: string, password: string) => {
+    try {
+        const { user } = await signInWithEmailAndPassword(auth, email, password);
+        return {
+            ok: true,
+            uid: user.uid
+        }
+    } catch (error: any) {
+        return {
+            ok: false,
+            msg: error.code,
+            uid: ''
+        }
+    }
+}
+
+export const logOut = () => {
+    signOut(auth).then(() => {
+        // Sign-out successful.
+    }).catch((error) => {
+        // An error happened.
+    });
 }

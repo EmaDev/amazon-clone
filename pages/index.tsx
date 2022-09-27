@@ -3,16 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import styled from 'styled-components';
 import { Button, ButtonsContainer, CancelText, Header, HeaderContent, HeaderContentMobile, HeaderMobile, ImageHeaderMobile, SeccionCard, SeccionServicios, SectionDivider, Separator, TextHeader } from '../components/index/Index.module';
 import { Layout } from '../components/Layout';
 import { AuthContext } from '../context/AuthContext';
 
 
-
 const Index: NextPage = () => {
 
-  const { login } = useContext(AuthContext);
   const isBigScreen = useMediaQuery({ query: '(min-width: 678px)' });
 
   return (
@@ -26,9 +23,9 @@ const Index: NextPage = () => {
                 <p>Disfruta de títulos Amazon Original exclusivos, además de películas y series populares por ARS 319/mes, más los impuestos aplicables. Disfruta ahora, cancela cuando quieras.</p>
               </TextHeader>
               <ButtonsContainer>
-                <Link href={'/'}><Button><span>¿Eres cliente de Prime Video? Identifícate</span></Button></Link>
+                <Link href={'/ingresar'}><Button><span>¿Eres cliente de Prime Video? Identifícate</span></Button></Link>
                 <Separator>O</Separator>
-                <Link href={'/'}><Button><span>Comienza tu periodo de prueba gratis*</span></Button></Link>
+                <Link href={'/ingresar'}><Button><span>Comienza tu periodo de prueba gratis*</span></Button></Link>
               </ButtonsContainer>
               <CancelText>*Cancela la prueba gratis en cualquier momento</CancelText>
             </HeaderContent>
@@ -43,9 +40,9 @@ const Index: NextPage = () => {
               </TextHeader>
 
               <ButtonsContainer>
-                <Link href={'/'}><Button><span>¿Eres cliente de Prime Video? Identifícate</span></Button></Link>
+                <Link href={'/ingresar'}><Button><span>¿Eres cliente de Prime Video? Identifícate</span></Button></Link>
                 <Separator>O</Separator>
-                <Link href={'/'}><Button><span>Comienza tu periodo de prueba gratis*</span></Button></Link>
+                <Link href={'/ingresar'}><Button><span>Comienza tu periodo de prueba gratis*</span></Button></Link>
 
               </ButtonsContainer>
             </HeaderContentMobile>

@@ -11,6 +11,7 @@ const GLobalContainer = styled.div`
   color: #e1e1e1;
   width: 95%;
   margin: 1rem auto;
+  
 `;
 const Title = styled.h3`
     margin: 0 1rem;
@@ -60,6 +61,8 @@ const CarrouselContainer = styled.div`
    position:relative;
    overflow-x: hidden;
    scroll-behavior: smooth;
+
+   
 `;
 const CarrouselSliderBigScreen = styled.div`
    display:flex;
@@ -75,6 +78,10 @@ const CarrouselSlider = styled.div`
    @media(min-width: 870px){
     padding: 2rem 0;
    }
+
+   ::-webkit-scrollbar {
+    display: none;
+    }
 `;
 
 interface Props {
