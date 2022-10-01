@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Button, ButtonsContainer, CancelText, Header, HeaderContent, HeaderContentMobile, HeaderMobile, ImageHeaderMobile, SeccionCard, SeccionServicios, SectionDivider, Separator, TextHeader } from '../components/index/Index.module';
@@ -10,8 +11,16 @@ import { AuthContext } from '../context/AuthContext';
 
 const Index: NextPage = () => {
 
+  const {isLogged} = useContext(AuthContext);
+  const {push} = useRouter();
   const isBigScreen = useMediaQuery({ query: '(min-width: 678px)' });
 
+  useEffect( () => {
+    if(isLogged){
+      push('/inicio');
+    }
+  },[isLogged]);
+  
   return (
     <Layout>
       {

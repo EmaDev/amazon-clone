@@ -5,17 +5,25 @@ import { Header } from '../components/Header';
 import { Layout } from '../components/Layout';
 import { PeliculasContext } from '../context/PeliculasContext';
 import { Spinner } from '../components/Spinner';
+import { AuthContext } from '../context/AuthContext';
+import { useRouter } from 'next/router';
 
 const HomePage: NextPage = () => {
-  const { peliculasState, isLoading } = useContext(PeliculasContext);
+  const {isLogged, isLoading:authIsLoading} = useContext(AuthContext);
+  const { peliculasState, isLoading} = useContext(PeliculasContext);
+  const {push} = useRouter();
 
-  /*const mostrarCarrouserPorCategoria = (query:string, title: string) => {
-    const movies = filterMoviesByQuery(query);
+  useEffect(() => {
+    if(!isLogged){
+      push('/');
+    }
+  },[isLogged]);
+
+  if(authIsLoading){
     return(
-      <Carrousel title={title} movies={(movies) ? movies : []} />
+      <Spinner/>
     )
-  }*/
-
+  }
   return (
     <>
       <Layout>
@@ -40,12 +48,3 @@ const HomePage: NextPage = () => {
 }
 
 export default HomePage;
-
-/* 
-<>
-           {mostrarCarrouserPorCategoria('top_rated','Grandes exitos')}
-           {mostrarCarrouserPorCategoria('now_playing','Tendencias')}
-           {mostrarCarrouserPorCategoria('popular','Popular')}
-           {mostrarCarrouserPorCategoria('upcoming','Proximamente')}
-            </>
-*/

@@ -14,13 +14,13 @@ export const Container = styled.section`
 `;
 
 export const LogoContainer = styled.div`
-
    margin: 2rem auto; 
    margin-top: 2rem;
    display: flex;
    justify-content: center;
    @media(max-width: 450px){
-    margin-bottom: 0;
+    margin: 0;
+    padding-top: 2rem;
     background: rgb(203,203,203);
     background: linear-gradient(0deg, rgba(203,203,203,1) 29%, rgba(252,252,253,1) 100%);
    }

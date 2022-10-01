@@ -6,6 +6,7 @@ import { CardConDescripcion } from '../../components/CardConDescripcion';
 import { Layout } from '../../components/Layout';
 import { PeliculasContext } from '../../context/PeliculasContext';
 import { Pelicula } from '../../interfaces/Peliculas';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const Title = styled.h1`
@@ -40,9 +41,16 @@ const CategoriaPage: NextPage = () => {
     
     const [categoria, setCategoria] = useState<string>('');
     const [peliculasDelGenero, setPeliculasDelGenero] = useState<Pelicula[]>([]);
+    const {isLogged} = useContext(AuthContext);
     const {getMovieByGenre, peliculasState} = useContext(PeliculasContext);
-    const {asPath} = useRouter();
+    const {asPath, push} = useRouter();
     
+    useEffect( () => {
+        if(!isLogged){
+          push('/');
+        }
+    },[isLogged]);
+
     useEffect( () => {
         const arrPath:any[] = asPath.split('/');
         setCategoria(arrPath[2]);

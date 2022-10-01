@@ -6,6 +6,7 @@ import { Layout } from '../../components/Layout';
 import { PeliculasContext } from '../../context/PeliculasContext';
 import { Pelicula } from '../../interfaces/Peliculas';
 import { CardConDescripcion } from '../../components/CardConDescripcion';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const Title = styled.h1`
@@ -37,9 +38,16 @@ const Grid = styled.div`
 
 const ExplorarPage: NextPage = () => {
 
-  const { query } = useRouter();
+  const { query, push } = useRouter();
+  const {isLogged} = useContext(AuthContext);
   const [peliculasState, setPeliculasState] = useState<Pelicula[]>([]);
   const { getMoviesAndTvShowsByQuery } = useContext(PeliculasContext);
+
+  useEffect( () => {
+    if(!isLogged){
+      push('/');
+    }
+  },[isLogged]);
 
   useEffect(() => {
     const getData = async () => {

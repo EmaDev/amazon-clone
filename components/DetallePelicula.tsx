@@ -26,8 +26,6 @@ export const DetallePelicula = ({ detalle, elenco, similares }: Props) => {
       //TODO: agregar a favs
    }
 
-   console.log(detalle.overview.length);
-
    const detallePelicula = () => {
       return (
          <>

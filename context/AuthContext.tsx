@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-import { createAnUserWithEmailAndPassword, loginWithEmailAndPassword, logOut } from '../firebase/auth';
+import React, { createContext, useState, useEffect } from 'react';
+import { createAnUserWithEmailAndPassword, detectarCambiosEnLaSesion, getInfoUsuario, loginWithEmailAndPassword, logOut } from '../firebase/auth';
 
 interface AuthContextProps {
     isLoading: boolean;
@@ -22,6 +22,13 @@ export const AuthContextProvider = ({children}:any) => {
     const [isLogged, setIsLogged] = useState<boolean>(false);
     const [userData, setUserData] = useState<UserProps|null>(null);
     
+    useEffect(() => {
+         verificarSiEstaLogeado();
+    },[]);
+
+    const verificarSiEstaLogeado = async() => {
+        await detectarCambiosEnLaSesion(login);
+    }
     const ingresar = async(email: string, clave:string) => {
         setIsLoading(true);
         const {ok, uid} = await loginWithEmailAndPassword(email, clave);
@@ -39,12 +46,16 @@ export const AuthContextProvider = ({children}:any) => {
         setIsLoading(true);
         const {ok, uid} = await createAnUserWithEmailAndPassword(nombre, email, clave);
         if(ok){
-            setUserData({
-                name: 'juanito',
-                uid: uid
-            });
-            setIsLogged(true);
+            login(uid);
         }
+        setIsLoading(false);
+        
+    }
+
+    const login = async(uid: string) => {
+        const resp = await getInfoUsuario(uid);
+        //setUserData(//TODO:completar);
+        setIsLogged(true);
         setIsLoading(false);
     }
 

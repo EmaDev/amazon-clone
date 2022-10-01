@@ -16,14 +16,13 @@ interface UserData {
 }
 
 export const detectarCambiosEnLaSesion = async(logIn:any) => {
-    
     onAuthStateChanged(auth, (user) => {
         if(user) {
             logIn(user.uid);
         }
     });
-
 }
+
 export const createAnUserWithEmailAndPassword = async(name:string,email:string, password:string) => {
 
     try {
@@ -79,4 +78,8 @@ export const logOut = () => {
     }).catch((error) => {
         // An error happened.
     });
+}
+
+export const getInfoUsuario = async(uid:string) => {
+
 }

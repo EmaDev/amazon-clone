@@ -9,6 +9,7 @@ import { MenuExplore } from './MenuExplore';
 import { BiDownArrow } from 'react-icons/bi';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Menu } from './Menu';
 
 const Container = styled.header`
    position: fixed;
@@ -59,9 +60,13 @@ export const Navbar = () => {
   const isBigBigScreen = useMediaQuery({ query: '(min-width: 880px)' });
   const {push} = useRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const [menuUserIsOpen, setMenuUserIsOpen] = useState<boolean>(false);
 
   const openMenu = () => {
     setMenuIsOpen((prev) => !prev);
+  }
+  const openUserMenu = () => {
+    setMenuUserIsOpen((prev) => !prev);
   }
 
   return (
@@ -80,13 +85,15 @@ export const Navbar = () => {
             <ItemText onClick={openMenu}>Explorar<BiDownArrow size={'1.2rem'} style={{margin: '0 .5rem'}}/></ItemText>
           }
         </div>
-        <div>
+        <div onClick={openUserMenu}>
           {(isBigBigScreen) ? <Buscador /> : <GoSearch size={'2rem'} style={{ margin: '0 2rem' }}/>}
           <FaUserCircle size={'3rem'} />
           {(isBigScreen) && <ItemText>Emanuel</ItemText>}
         </div>
       </ContainerNavBar>
       <MenuExplore menuIsOpen={menuIsOpen} closeMenu={openMenu}/>
+
+      <Menu menuIsOpen={menuUserIsOpen} closeMenu={openUserMenu}/>
     </Container>
   )
 }
